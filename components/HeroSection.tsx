@@ -39,30 +39,33 @@ export default function HeroSection({ data }: HeroSectionProps) {
             Vani
           </h1>
         </div>
+      </div>
 
+      {/* Bottom Area: Date & Muhurtham + Scroll Cue */}
+      <div className="flex flex-col items-center gap-5 z-10">
         {/* Date & Muhurtham pill */}
-        <div className="mt-4 px-5 py-2 rounded-full bg-[#190409]/75 border border-[#e8d3aa]/50 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
-          <p className="font-serif text-sm sm:text-base tracking-widest text-[#f1dfc5] font-semibold">
+        <div className="px-6 py-2 rounded-full bg-black/20 backdrop-blur-xs border border-[#e8d3aa]/30">
+          <p className="font-serif text-sm sm:text-base tracking-widest text-[#f1dfc5] font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
             {data.heroDate}
           </p>
-          <p className="text-xs text-[#d8bd91] tracking-wider mt-0.5">
+          <p className="text-xs text-[#d8bd91] tracking-wider mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">
             {data.timingPill}
           </p>
         </div>
-      </div>
 
-      {/* Bottom Scroll Cue */}
-      <a
-        href="#invitation-card"
-        className="group flex flex-col items-center gap-2 text-[#e8d3aa]/85 text-xs uppercase tracking-[0.2em] transition-all duration-300 hover:text-[#fff0df]"
-      >
-        <span className="tracking-[0.25em] text-[11px] drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">
-          Scroll to view invitation
-        </span>
-        <div className="w-5 h-8 border border-[#e8d3aa]/60 rounded-full relative bg-[#190409]/40 backdrop-blur-xs">
-          <div className="w-1 h-2 bg-[#e8d3aa] rounded-full absolute top-1.5 left-1/2 -translate-x-1/2 animate-bounce" />
-        </div>
-      </a>
+        {/* Bottom Scroll Cue */}
+        <a
+          href="#invitation-card"
+          className="group flex flex-col items-center gap-2 text-[#e8d3aa]/85 text-xs uppercase tracking-[0.2em] transition-all duration-300 hover:text-[#fff0df]"
+        >
+          <span className="tracking-[0.25em] text-[11px] drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">
+            Scroll to view invitation
+          </span>
+          <div className="w-5 h-8 border border-[#e8d3aa]/60 rounded-full relative bg-[#190409]/40 backdrop-blur-xs">
+            <div className="w-1 h-2 bg-[#e8d3aa] rounded-full absolute top-1.5 left-1/2 -translate-x-1/2 animate-bounce" />
+          </div>
+        </a>
+      </div>
     </section>
   );
 }
