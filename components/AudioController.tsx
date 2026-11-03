@@ -79,9 +79,8 @@ export default function AudioController({ data, onOpen, onOpeningStart }: AudioC
       {/* Initial 3D Double-Door Center-Open Gateway Screen */}
       {!isOpened && (
         <div
-          className={`fixed inset-0 z-50 flex items-center justify-center p-0 overflow-hidden select-none transition-opacity duration-700 ${
-            isOpening ? 'pointer-events-none' : ''
-          }`}
+          className={`fixed inset-0 z-50 flex items-center justify-center p-0 overflow-hidden select-none transition-opacity duration-700 ${isOpening ? 'pointer-events-none' : ''
+            }`}
         >
           {/* Ambient background sparkles */}
           <div className="absolute inset-0 sparkles opacity-40 pointer-events-none" />
@@ -97,9 +96,8 @@ export default function AudioController({ data, onOpen, onOpeningStart }: AudioC
               Only the doors, arch frame, and prompt controls animate and zoom away!
             */}
             <div
-              className={`door-elements-wrapper absolute inset-0 w-full h-full pointer-events-none ${
-                isOpening ? 'door-elements-zoomed' : ''
-              }`}
+              className={`door-elements-wrapper absolute inset-0 w-full h-full pointer-events-none ${isOpening ? 'door-elements-zoomed' : ''
+                }`}
             >
               {/* 
                 3D Double Doors (split into Left & Right center-opening leaves)
@@ -169,8 +167,9 @@ export default function AudioController({ data, onOpen, onOpeningStart }: AudioC
 
               {/* 4. Elegant Header above the Arch */}
               <div
-                className={`absolute top-2 sm:top-4 inset-x-0 z-30 flex flex-col items-center text-center px-4 transition-all duration-500 ease-out pointer-events-none ${isOpening ? 'opacity-0 -translate-y-4' : 'opacity-100 translate-y-0'
-                  }`}
+                className={`absolute top-14 sm:top-20 inset-x-0 z-30 flex flex-col items-center text-center px-4 transition-all duration-500 ease-out pointer-events-none ${
+                  isOpening ? 'opacity-0 -translate-y-4' : 'opacity-100 translate-y-0'
+                }`}
               >
                 <div className="flex items-center gap-2">
                   <span className="w-6 sm:w-10 h-[1px] bg-gradient-to-r from-transparent to-[#e8d3aa]/80" />
@@ -187,8 +186,9 @@ export default function AudioController({ data, onOpen, onOpeningStart }: AudioC
 
               {/* 5. Sleek Floating "Open Invitation" Button at the Base (unobstructed door view) */}
               <div
-                className={`absolute bottom-3 sm:bottom-6 inset-x-0 z-30 flex flex-col items-center text-center px-4 transition-all duration-500 ease-out pointer-events-auto ${isOpening ? 'opacity-0 translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'
-                  }`}
+                className={`absolute bottom-20 sm:bottom-28 inset-x-0 z-30 flex flex-col items-center text-center px-4 transition-all duration-500 ease-out pointer-events-auto ${
+                  isOpening ? 'opacity-0 translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'
+                }`}
               >
                 <button
                   onClick={handleOpenInvitation}

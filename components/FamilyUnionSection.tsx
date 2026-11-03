@@ -34,7 +34,7 @@ export default function FamilyUnionSection({ data }: FamilyUnionSectionProps) {
               The Groom
             </span>
             <h3 className="font-[family-name:var(--font-cinzel)] text-xl md:text-2xl font-bold text-[#C2185B] mb-1">
-              Sreeraj
+              Vishnu
             </h3>
             <p className="font-[family-name:var(--font-cormorant)] text-base text-[#7E5874] italic">
               Son of
@@ -64,7 +64,7 @@ export default function FamilyUnionSection({ data }: FamilyUnionSectionProps) {
               The Bride
             </span>
             <h3 className="font-[family-name:var(--font-cinzel)] text-xl md:text-2xl font-bold text-[#C2185B] mb-1">
-              Suji
+              Vani
             </h3>
             <p className="font-[family-name:var(--font-cormorant)] text-base text-[#7E5874] italic">
               Daughter of

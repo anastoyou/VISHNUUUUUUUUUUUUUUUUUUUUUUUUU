@@ -13,7 +13,7 @@ export default function ClosingSection({ data }: ClosingSectionProps) {
     trackEvent('share_click');
     const shareData = {
       title: data.pageTitle,
-      text: `You are cordially invited to celebrate the ${data.tagline} of Sreeraj & Suji on December 30, 2026.`,
+      text: `You are cordially invited to celebrate the ${data.tagline} of Vishnu & Vani on December 30, 2026.`,
       url: window.location.href,
     };
 
@@ -78,7 +78,7 @@ export default function ClosingSection({ data }: ClosingSectionProps) {
         </div>
 
         <p className="text-[11px] text-[#7E5874] tracking-wide">
-          Made with love for Sreeraj &amp; Suji • 2026
+          Made with love for Vishnu &amp; Vani • 2026
         </p>
       </div>
     </section>

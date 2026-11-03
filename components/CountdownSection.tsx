@@ -58,9 +58,9 @@ export default function CountdownSection({ data }: CountdownSectionProps) {
     const icsContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//Sreeraj & Suji Wedding//EN',
+      'PRODID:-//Vishnu & Vani Wedding//EN',
       'BEGIN:VEVENT',
-      `UID:${data.id}-sreeraj-suji-20261230`,
+      `UID:${data.id}-vishnu-vani-20261230`,
       `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`,
       `DTSTART:${data.startUtc}`,
       `DTEND:${data.endUtc}`,
@@ -81,7 +81,7 @@ export default function CountdownSection({ data }: CountdownSectionProps) {
       const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      link.setAttribute('download', `${data.id}-sreeraj-suji.ics`);
+      link.setAttribute('download', `${data.id}-vishnu-vani.ics`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

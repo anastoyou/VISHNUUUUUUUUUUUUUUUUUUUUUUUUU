@@ -168,7 +168,7 @@ export default function AdminDashboard() {
             </h1>
           </div>
           <p className="text-xs md:text-sm text-[#7E5874] mt-1">
-            Connected to Neon PostgreSQL Database • Sreeraj &amp; Suji Wedding Celebration
+            Connected to Neon PostgreSQL Database • Vishnu &amp; Vani Wedding Celebration
           </p>
         </div>
 
@@ -245,22 +245,20 @@ export default function AdminDashboard() {
       <div className="max-w-7xl mx-auto flex items-center gap-2 border-b border-[#D4AF37]/30 mb-6">
         <button
           onClick={() => setActiveTab('rsvps')}
-          className={`px-5 py-2.5 text-xs md:text-sm font-bold tracking-wide uppercase transition-all border-b-2 cursor-pointer ${
-            activeTab === 'rsvps'
-              ? 'border-[#C2185B] text-[#9C1448]'
-              : 'border-transparent text-[#7E5874] hover:text-[#9C1448]'
-          }`}
+          className={`px-5 py-2.5 text-xs md:text-sm font-bold tracking-wide uppercase transition-all border-b-2 cursor-pointer ${activeTab === 'rsvps'
+            ? 'border-[#C2185B] text-[#9C1448]'
+            : 'border-transparent text-[#7E5874] hover:text-[#9C1448]'
+            }`}
         >
           💌 RSVP Data Store ({rsvps.length})
         </button>
 
         <button
           onClick={() => setActiveTab('analytics')}
-          className={`px-5 py-2.5 text-xs md:text-sm font-bold tracking-wide uppercase transition-all border-b-2 cursor-pointer ${
-            activeTab === 'analytics'
-              ? 'border-[#C2185B] text-[#9C1448]'
-              : 'border-transparent text-[#7E5874] hover:text-[#9C1448]'
-          }`}
+          className={`px-5 py-2.5 text-xs md:text-sm font-bold tracking-wide uppercase transition-all border-b-2 cursor-pointer ${activeTab === 'analytics'
+            ? 'border-[#C2185B] text-[#9C1448]'
+            : 'border-transparent text-[#7E5874] hover:text-[#9C1448]'
+            }`}
         >
           📊 Whole Analytics Details
         </button>
@@ -277,19 +275,18 @@ export default function AdminDashboard() {
                 <button
                   key={opt}
                   onClick={() => setFilterAttending(opt)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                    filterAttending === opt
-                      ? 'bg-[#9C1448] text-white shadow-xs'
-                      : 'bg-white/80 text-[#7E5874] hover:bg-white'
-                  }`}
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${filterAttending === opt
+                    ? 'bg-[#9C1448] text-white shadow-xs'
+                    : 'bg-white/80 text-[#7E5874] hover:bg-white'
+                    }`}
                 >
                   {opt === 'all'
                     ? 'All'
                     : opt === 'yes'
-                    ? 'Attending'
-                    : opt === 'no'
-                    ? 'Declined'
-                    : 'Maybe'}
+                      ? 'Attending'
+                      : opt === 'no'
+                        ? 'Declined'
+                        : 'Maybe'}
                 </button>
               ))}
             </div>
@@ -342,19 +339,18 @@ export default function AdminDashboard() {
                         <td className="py-3 px-4 font-semibold text-[#2D1525]">{rsvp.name}</td>
                         <td className="py-3 px-4">
                           <span
-                            className={`inline-block px-2.5 py-0.5 rounded-full font-bold text-[10px] uppercase tracking-wider ${
-                              rsvp.attending === 'yes'
-                                ? 'bg-green-100 text-green-800 border border-green-300'
-                                : rsvp.attending === 'no'
+                            className={`inline-block px-2.5 py-0.5 rounded-full font-bold text-[10px] uppercase tracking-wider ${rsvp.attending === 'yes'
+                              ? 'bg-green-100 text-green-800 border border-green-300'
+                              : rsvp.attending === 'no'
                                 ? 'bg-rose-100 text-rose-800 border border-rose-300'
                                 : 'bg-amber-100 text-amber-800 border border-amber-300'
-                            }`}
+                              }`}
                           >
                             {rsvp.attending === 'yes'
                               ? 'Attending'
                               : rsvp.attending === 'no'
-                              ? 'Declined'
-                              : 'Maybe'}
+                                ? 'Declined'
+                                : 'Maybe'}
                           </span>
                         </td>
                         <td className="py-3 px-4 font-bold text-[#9C1448]">
@@ -364,8 +360,8 @@ export default function AdminDashboard() {
                           {rsvp.event_type === 'both'
                             ? 'Both Events'
                             : rsvp.event_type === 'invitation'
-                            ? 'Ceremony'
-                            : 'Reception'}
+                              ? 'Ceremony'
+                              : 'Reception'}
                         </td>
                         <td className="py-3 px-4">
                           {rsvp.phone ? (
