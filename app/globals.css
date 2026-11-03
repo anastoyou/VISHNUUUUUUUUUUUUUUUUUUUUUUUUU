@@ -370,6 +370,41 @@
   animation: lanternGlow 3.5s ease-in-out infinite;
 }
 
+/* 2.5D Layered Background Parallax & Floating Motion */
+@keyframes bgFloat {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.03);
+  }
+  50% {
+    transform: translate3d(-1%, -1.2%, 0) scale(1.055);
+  }
+  100% {
+    transform: translate3d(1%, 0.8%, 0) scale(1.03);
+  }
+}
+
+@keyframes fgFloat {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.015);
+  }
+  50% {
+    transform: translate3d(0.8%, 1%, 0) scale(1.035);
+  }
+  100% {
+    transform: translate3d(-0.8%, -0.6%, 0) scale(1.015);
+  }
+}
+
+.animate-bg-float {
+  animation: bgFloat 16s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.animate-fg-float {
+  animation: fgFloat 12s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
 @media (max-width: 440px) {
   .invite {
     padding: 64px 16px 32px;

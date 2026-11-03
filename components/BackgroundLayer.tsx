@@ -12,6 +12,7 @@ export default function BackgroundLayer({
   isOpening = false,
 }: BackgroundLayerProps) {
   const imageRef = useRef<HTMLDivElement | null>(null);
+  const fgImageRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -33,7 +34,11 @@ export default function BackgroundLayer({
 
       if (imageRef.current && blur !== lastBlur) {
         lastBlur = blur;
-        imageRef.current.style.filter = blur > 0 ? `blur(${blur}px)` : 'none';
+        const filterVal = blur > 0 ? `blur(${blur}px)` : 'none';
+        imageRef.current.style.filter = filterVal;
+        if (fgImageRef.current) {
+          fgImageRef.current.style.filter = filterVal;
+        }
       }
 
       if (overlayRef.current && opacity !== lastOpacity) {
@@ -60,18 +65,20 @@ export default function BackgroundLayer({
   return (
     <div className="fixed inset-0 w-screen h-screen z-0 overflow-hidden pointer-events-none will-change-transform">
       {/* 
-        Background Image: Uses /assets/image.png
-        Shows in full view initially, then smoothly blurs on scroll.
-        Synchronized with doorway: larger initial size (0.84 mobile / 0.80 desktop), zooms in on open!
+        Layered 2.5D Background:
+        1. Base photo: /assets/image.png with slow ambient drift (animate-bg-float)
+        2. Foreground cutout: /assets/image-removebg.png placed on top with complementary float (animate-fg-float)
+        Both images move with subtle organic 2.5D parallax!
       */}
       <div
         className={`absolute inset-0 w-full h-full bg-portal-container ${
           !isOpened ? (isOpening ? 'bg-zoom-in' : 'bg-scaled-down') : ''
         }`}
       >
+        {/* Layer 1: Background Image (/assets/image.png) */}
         <div
           ref={imageRef}
-          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-[filter] duration-75 will-change-[filter] scale-[1.03]"
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-[filter] duration-75 will-change-[filter,transform] animate-bg-float"
           style={{
             backgroundImage: "url('/assets/image.png')",
             backgroundPosition: 'center 20%',
@@ -79,8 +86,19 @@ export default function BackgroundLayer({
           }}
         />
 
+        {/* Layer 2: Foreground Cutout Image (/assets/image-removebg.png) placed on top of image.png */}
+        <div
+          ref={fgImageRef}
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-[filter] duration-75 will-change-[filter,transform] animate-fg-float pointer-events-none"
+          style={{
+            backgroundImage: "url('/assets/image-removebg.png')",
+            backgroundPosition: 'center 20%',
+            filter: 'none',
+          }}
+        />
+
         {/* 
-          Dynamic Royal Wine & Shading Overlay:
+          Layer 3: Dynamic Royal Wine & Shading Overlay:
           Light tint initially, deepening on scroll to provide a shaded background for card elements.
         */}
         <div
