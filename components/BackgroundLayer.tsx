@@ -97,8 +97,16 @@ export default function BackgroundLayer({
           }}
         />
 
+        {/* Layer 3: CSS Cinematic Light Effect (Volumetric God Rays & Anamorphic Lens Flare) */}
+        <div className="cinematic-light-container">
+          <div className="cinematic-god-ray" />
+          <div className="cinematic-god-ray-beam" />
+          <div className="cinematic-lens-flare" />
+          <div className="cinematic-flare-orb" />
+        </div>
+
         {/* 
-          Layer 3: Dynamic Royal Wine & Shading Overlay:
+          Layer 4: Dynamic Royal Wine & Shading Overlay:
           Light tint initially, deepening on scroll to provide a shaded background for card elements.
         */}
         <div

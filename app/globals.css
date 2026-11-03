@@ -405,6 +405,133 @@
   will-change: transform;
 }
 
+/* CSS Cinematic Light Effect: Volumetric God Rays & Anamorphic Flare */
+.cinematic-light-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  mix-blend-mode: screen;
+  z-index: 1;
+}
+
+/* 1. Volumetric God Rays streaming down from the top */
+.cinematic-god-ray {
+  position: absolute;
+  top: -25%;
+  left: -15%;
+  width: 130%;
+  height: 130%;
+  background: 
+    radial-gradient(ellipse 60% 55% at 35% 15%, rgba(255, 235, 175, 0.32) 0%, rgba(255, 215, 120, 0.14) 38%, transparent 72%),
+    linear-gradient(135deg, rgba(255, 245, 205, 0.22) 0%, rgba(245, 200, 110, 0.08) 32%, transparent 65%);
+  filter: blur(28px);
+  will-change: transform, opacity;
+  animation: cinematicRayBreathe 11s ease-in-out infinite alternate;
+}
+
+/* 2. Secondary Ray Stream for realistic atmospheric ray divergence */
+.cinematic-god-ray-beam {
+  position: absolute;
+  top: -35%;
+  right: 5%;
+  width: 95%;
+  height: 160%;
+  background: linear-gradient(118deg, transparent 20%, rgba(255, 230, 150, 0.14) 36%, rgba(255, 255, 245, 0.24) 42%, rgba(255, 215, 120, 0.12) 48%, transparent 65%);
+  filter: blur(38px);
+  transform-origin: top right;
+  animation: cinematicBeamDrift 14s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+/* 3. Anamorphic Cinematic Lens Flare Streak across the couple */
+.cinematic-lens-flare {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 6px;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.85) 0%, rgba(255, 225, 130, 0.55) 25%, rgba(235, 180, 80, 0.2) 60%, transparent 85%);
+  filter: blur(3px) drop-shadow(0 0 18px rgba(255, 215, 100, 0.65));
+  animation: cinematicFlareGleam 8s ease-in-out infinite alternate;
+  will-change: opacity, transform;
+}
+
+/* 4. Warm Central Flare Orb */
+.cinematic-flare-orb {
+  position: absolute;
+  top: 36%;
+  left: 48%;
+  transform: translate(-50%, -50%);
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(255, 215, 120, 0.28) 30%, rgba(216, 160, 60, 0.08) 60%, transparent 80%);
+  filter: blur(10px);
+  animation: cinematicOrbPulse 7s ease-in-out infinite alternate;
+}
+
+@keyframes cinematicRayBreathe {
+  0% {
+    opacity: 0.65;
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: rotate(2deg) scale(1.05);
+  }
+  100% {
+    opacity: 0.7;
+    transform: rotate(-1.5deg) scale(1.02);
+  }
+}
+
+@keyframes cinematicBeamDrift {
+  0% {
+    opacity: 0.45;
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.85;
+    transform: rotate(-2.5deg) translate3d(-18px, 12px, 0);
+  }
+  100% {
+    opacity: 0.55;
+    transform: rotate(2deg) translate3d(18px, -10px, 0);
+  }
+}
+
+@keyframes cinematicFlareGleam {
+  0% {
+    opacity: 0.35;
+    transform: translate(-50%, -50%) scaleX(0.85);
+  }
+  50% {
+    opacity: 0.82;
+    transform: translate(-48%, -49%) scaleX(1.1);
+  }
+  100% {
+    opacity: 0.45;
+    transform: translate(-52%, -51%) scaleX(0.95);
+  }
+}
+
+@keyframes cinematicOrbPulse {
+  0% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  50% {
+    opacity: 0.85;
+    transform: translate(-49%, -49%) scale(1.15);
+  }
+  100% {
+    opacity: 0.5;
+    transform: translate(-51%, -51%) scale(0.95);
+  }
+}
+
 @media (max-width: 440px) {
   .invite {
     padding: 64px 16px 32px;
