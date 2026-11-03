@@ -5,6 +5,7 @@ import { WeddingEventData } from '@/lib/events';
 import ImagePlaceholder from './ImagePlaceholder';
 import CountdownTimer from './CountdownTimer';
 import RsvpSection from './RsvpSection';
+import BottomShareAndPromo from './BottomShareAndPromo';
 
 interface InvitationCardProps {
   data: WeddingEventData;
@@ -290,6 +291,17 @@ export default function InvitationCard({ data }: InvitationCardProps) {
               </p>
             </div>
           </div>
+
+          <div className="gold-line" />
+
+          {/* Share & Promotional Section with Parameters */}
+          <BottomShareAndPromo
+            title="Celebrate your moments with invitation"
+            contactText="Contact for Work"
+            whatsappNumber="+918086870169"
+            shareTitle="Vishnu & Vani | Wedding Invitation"
+            shareText="Join us in celebrating the royal wedding of Vishnu & Vani!"
+          />
         </div>
       </div>
     </article >
