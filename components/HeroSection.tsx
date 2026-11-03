@@ -16,7 +16,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
       className="min-h-[100svh] w-full flex flex-col justify-between items-center text-center px-4 pt-12 pb-8 relative z-10"
     >
       {/* Top Function Badge */}
-      <div className="mt-2 animate-fade-in">
+      <div className="mt-2">
         <span className="inline-block px-4 py-1.5 rounded-full bg-[#190409]/80 border border-[#e8d3aa]/40 text-[11px] uppercase tracking-[0.22em] text-[#e8d3aa] font-semibold backdrop-blur-xs shadow-md">
           {isReception ? 'Wedding Reception Invitation' : 'Wedding Ceremony Invitation'}
         </span>

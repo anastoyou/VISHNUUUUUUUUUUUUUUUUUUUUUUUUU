@@ -2,7 +2,15 @@
 
 import React, { useEffect, useRef } from 'react';
 
-export default function BackgroundLayer() {
+interface BackgroundLayerProps {
+  isOpened?: boolean;
+  isOpening?: boolean;
+}
+
+export default function BackgroundLayer({
+  isOpened = false,
+  isOpening = false,
+}: BackgroundLayerProps) {
   const imageRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
@@ -54,26 +62,33 @@ export default function BackgroundLayer() {
       {/* 
         Background Image: Uses /assets/image.png
         Shows in full view initially, then smoothly blurs on scroll.
+        Synchronized with doorway: larger initial size (0.84 mobile / 0.80 desktop), zooms in on open!
       */}
       <div
-        ref={imageRef}
-        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-[filter] duration-75 will-change-[filter] scale-[1.03]"
-        style={{
-          backgroundImage: "url('/assets/image.png')",
-          backgroundPosition: 'center 20%',
-          filter: 'none',
-        }}
-      />
+        className={`absolute inset-0 w-full h-full bg-portal-container ${
+          !isOpened ? (isOpening ? 'bg-zoom-in' : 'bg-scaled-down') : ''
+        }`}
+      >
+        <div
+          ref={imageRef}
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-[filter] duration-75 will-change-[filter] scale-[1.03]"
+          style={{
+            backgroundImage: "url('/assets/image.png')",
+            backgroundPosition: 'center 20%',
+            filter: 'none',
+          }}
+        />
 
-      {/* 
-        Dynamic Royal Wine & Shading Overlay:
-        Light tint initially, deepening on scroll to provide a shaded background for card elements.
-      */}
-      <div
-        ref={overlayRef}
-        className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#190409]/60 via-[#30070d]/80 to-[#190409]/95 pointer-events-none will-change-[opacity]"
-        style={{ opacity: 0.25 }}
-      />
+        {/* 
+          Dynamic Royal Wine & Shading Overlay:
+          Light tint initially, deepening on scroll to provide a shaded background for card elements.
+        */}
+        <div
+          ref={overlayRef}
+          className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#190409]/60 via-[#30070d]/80 to-[#190409]/95 pointer-events-none will-change-[opacity]"
+          style={{ opacity: 0.25 }}
+        />
+      </div>
 
       {/* Ambient golden dust sparkles overlay */}
       <div className="absolute inset-0 w-full h-full sparkles pointer-events-none opacity-40" />

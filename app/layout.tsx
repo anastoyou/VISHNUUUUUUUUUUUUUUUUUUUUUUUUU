@@ -66,6 +66,13 @@ export default function RootLayout({
       lang="en"
       className={`${cormorant.variable} ${greatVibes.variable} ${alexBrush.variable} ${cinzel.variable} ${montserrat.variable} scroll-smooth`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if('scrollRestoration' in history){history.scrollRestoration='manual';}window.scrollTo(0,0);`,
+          }}
+        />
+      </head>
       <body className="font-[family-name:var(--font-cormorant)] text-[#fff0df] antialiased min-h-screen relative bg-[#190409]">
         <AnalyticsTracker />
         {children}

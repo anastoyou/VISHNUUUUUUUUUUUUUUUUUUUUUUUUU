@@ -27,6 +27,116 @@
   font-family: var(--font-great-vibes), var(--font-alex-brush), 'Great Vibes', cursive;
 }
 
+/* 3D Double-Door Center-Open Portal & Zoom Animation */
+.door-perspective {
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
+}
+
+
+
+/* Door & Frame Blur when screen loads */
+.door-blur-initial {
+  filter: blur(4px);
+  transition: filter 0.8s ease;
+}
+
+.door-portal-stage:hover .door-blur-initial,
+.door-perspective:hover .door-blur-initial {
+  filter: blur(1.5px);
+}
+
+/* 3D Double-Door Panel Swing */
+.door-panel-left {
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.35, 1), filter 0.6s ease;
+  will-change: transform, filter;
+}
+
+.door-panel-right {
+  transform-origin: right center;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.35, 1), filter 0.6s ease;
+  will-change: transform, filter;
+}
+
+.door-open-left {
+  transform: rotateY(85deg);
+  filter: blur(0px) brightness(0.85);
+}
+
+.door-open-right {
+  transform: rotateY(-85deg);
+  filter: blur(0px) brightness(0.85);
+}
+
+/* Door portal stage backdrop */
+.door-portal-stage {
+  box-shadow: 0 0 0 100vmax #120206;
+}
+
+/* Door-related elements animation:
+   Waits 0.8s for doors to fully open, THEN zooms out and fades */
+.door-elements-wrapper {
+  transform-origin: 48.7% 55%;
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.8s, opacity 0.6s ease-in 1.4s;
+  will-change: transform, opacity;
+}
+
+.door-elements-wrapper.door-elements-zoomed {
+  transform: scale(2.8);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* HeroSection choreography:
+   Scaled down inside doorway initially;
+   After doors fully open (0.8s), zooms in with door section up to scale(1) and stops */
+.hero-portal-container {
+  transform-origin: center 52%;
+  will-change: transform;
+}
+
+.hero-scaled-down {
+  transform: scale(0.5);
+}
+
+@media (max-width: 640px) {
+  .hero-scaled-down {
+    transform: scale(0.54);
+  }
+}
+
+.hero-zoom-in {
+  transform: scale(1);
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.8s;
+}
+
+/* Background Image choreography:
+   Increased size before opening the door (0.84 mobile / 0.80 desktop, much larger than before)
+   After doors fully open (0.8s), zooms in smoothly to scale(1) and stops */
+.bg-portal-container {
+  transform-origin: center 30%;
+  will-change: transform;
+}
+
+.bg-scaled-down {
+  transform: scale(0.8);
+}
+
+@media (max-width: 640px) {
+  .bg-scaled-down {
+    transform: scale(0.84);
+  }
+}
+
+.bg-zoom-in {
+  transform: scale(1);
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.8s;
+}
+
 /* Royal Invitation Card Styles: Flows seamlessly from the background shade */
 .invite {
   position: relative;
