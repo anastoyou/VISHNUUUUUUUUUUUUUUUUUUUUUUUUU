@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+
+  @layer base {
+    :root {
+      --primary-rose: #C2185B;
+      --deep-magenta: #9C1448;
+      --royal-violet: #6A1B9A;
+      --gold-metallic: #D4AF37;
+      --gold-dark: #AA820A;
+      --bg-creme: #FDF9F2;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-creme);
+      color: #2D1525;
+      overflow-x: hidden;
+    }
+  }
+
+
+    /* Glassmorphism custom utilities */
+    .glass-panel {
+      background-color: rgba(255, 252, 246, 0.18);
+      backdrop-filter: blur(8px) saturate(120%);
+      -webkit-backdrop-filter: blur(8px) saturate(120%);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      box-shadow: 0 8px 24px -6px rgba(74, 28, 56, 0.07), 0 2px 6px rgba(0, 0, 0, 0.02);
+      border-radius: 1.5rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+
+        .glass-subcard {
+          background-color: rgba(255, 255, 255, 0.16);
+          border: 1px solid rgba(255, 255, 255, 0.28);
+          border-radius: 1rem;
+        }
+
+        /* Audio equalizer bars animation */
+        @keyframes soundBar {
+
+          0%,
+          100% {
+            transform: scaleY(0.25);
+          }
+
+          50% {
+            transform: scaleY(1);
+          }
+        }
+
+
+          .animate-bar-1 {
+            animation: soundBar 1.2s infinite ease-in-out;
+          }
+
+          .animate-bar-2 {
+            animation: soundBar 0.9s infinite ease-in-out 0.2s;
+          }
+
+          .animate-bar-3 {
+            animation: soundBar 1.4s infinite ease-in-out 0.4s;
+          }
+
+          .animate-bar-4 {
+            animation: soundBar 1.0s infinite ease-in-out 0.1s;
+          }
+
+          /* Heart throb animation */
+          @keyframes heartThrob {
+
+            0%,
+            100% {
+              transform: scale(1);
+            }
+
+            50% {
+              transform: scale(1.15);
+            }
+          }
+
+          .animate-heart {
+            animation: heartThrob 2s infinite ease-in-out;
+          }
+
+          /* Mandala slow spin */
+          @keyframes mandalaSpin {
+            0% {
+              transform: rotate(0deg);
+            }
+
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+
+          .animate-mandala {
+            animation: mandalaSpin 25s linear infinite;
+          }
