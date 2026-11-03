@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { usePathname } from 'next/navigation';
 import { WeddingEventData } from '@/lib/events';
 import { getVisitorId, getSessionId, trackEvent } from '@/lib/analytics';
 
@@ -10,15 +9,12 @@ interface RsvpSectionProps {
 }
 
 export default function RsvpSection({ data }: RsvpSectionProps) {
-  const pathname = usePathname();
-  // Automatically determine event type from data.id or the dynamic path
-  const dynamicEventType =
-    data?.id || (pathname?.includes('reception') ? 'reception' : 'invitation');
-  const eventLabel =
-    dynamicEventType === 'reception' ? 'Wedding Reception' : 'Wedding Ceremony';
+  const isReception = data.id === 'reception';
+  const eventLabel = isReception ? 'Wedding Reception' : 'Wedding Ceremony';
 
   const [name, setName] = useState('');
   const [attending, setAttending] = useState<'yes' | 'no'>('yes');
+  const [guestCount, setGuestCount] = useState<number>(1);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -44,8 +40,8 @@ export default function RsvpSection({ data }: RsvpSectionProps) {
         body: JSON.stringify({
           name: name.trim(),
           attending,
-          guest_count: attending === 'yes' ? 1 : 0,
-          event_type: dynamicEventType, // taken automatically from dynamic path
+          guest_count: attending === 'yes' ? guestCount : 0,
+          event_type: data.id,
           visitor_id: visitorId,
           session_id: sessionId,
         }),
@@ -61,7 +57,7 @@ export default function RsvpSection({ data }: RsvpSectionProps) {
       trackEvent('attendance_submit_success', {
         name: name.trim(),
         attending,
-        event_type: dynamicEventType,
+        event_type: data.id,
       });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Something went wrong. Please try again.';
@@ -75,147 +71,156 @@ export default function RsvpSection({ data }: RsvpSectionProps) {
   const handleReset = () => {
     setSubmitted(false);
     setName('');
+    setGuestCount(1);
     setAttending('yes');
   };
 
   return (
-    <section id="attendance" className="w-full flex justify-center">
-      <div className="glass-panel w-full p-6 sm:p-8 md:p-10 text-center relative overflow-hidden">
-        {/* Subtle decorative background glow */}
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-gradient-to-b from-[#D4AF37]/15 to-transparent rounded-full blur-3xl pointer-events-none" />
+    <section id="rsvp-section" className="w-full my-6 text-center">
+      <div className="max-w-md mx-auto p-5 sm:p-7 rounded-2xl bg-[#25050b]/65 border border-[#e8d3aa]/40 backdrop-blur-md shadow-inner text-[#fff0df]">
+        <p className="text-[11px] uppercase tracking-[0.25em] text-[#d9bd92] font-semibold mb-1">
+          RSVP
+        </p>
 
-        <div className="relative z-10">
-          <div className="text-xs tracking-[4px] text-[#D4AF37] font-semibold mb-2">
-            🌸 BE OUR GUEST
+        <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-[#f1dfc5] mb-1">
+          Confirm Your Presence
+        </h3>
+
+        <p className="text-xs text-[#ead7bd]/80 mb-5">
+          {eventLabel} • Please let us know if you will grace the occasion
+        </p>
+
+        {submitted ? (
+          <div className="py-4 text-center animate-fade-in">
+            <span className="text-4xl block mb-2 animate-heart">💖</span>
+            <h4 className="font-serif text-xl font-bold text-[#f1dfc5] mb-2">
+              Thank You, {name}!
+            </h4>
+            <p className="text-xs sm:text-sm text-[#e6d3bd] leading-relaxed mb-5">
+              {attending === 'yes' ? (
+                <>
+                  Your RSVP for the <strong>{eventLabel}</strong> ({guestCount} {guestCount === 1 ? 'Guest' : 'Guests'}) has been joyfully recorded in our database. We look forward to celebrating with you!
+                </>
+              ) : (
+                <>
+                  Your response has been noted with gratitude. Thank you for your heartfelt prayers and blessings for Vishnu &amp; Vani!
+                </>
+              )}
+            </p>
+
+            <button
+              type="button"
+              onClick={handleReset}
+              className="px-5 py-2 rounded-full bg-[#1c040a] hover:bg-[#3b0912] border border-[#e8d3aa]/50 text-[#e8d3aa] text-xs font-semibold transition-colors cursor-pointer"
+            >
+              Submit Another Response
+            </button>
           </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="text-left space-y-4">
+            {errorMsg && (
+              <div className="p-2.5 bg-red-950/80 border border-red-500/50 text-red-200 text-xs rounded-lg text-center font-medium">
+                {errorMsg}
+              </div>
+            )}
 
-          <h2 className="font-[family-name:var(--font-cinzel)] text-2xl md:text-3xl font-bold text-[#9C1448] tracking-wide">
-            Confirm Your Presence
-          </h2>
-          <p className="font-[family-name:var(--font-cormorant)] text-base md:text-lg text-[#7E5874] mt-1 mb-3">
-            {eventLabel} • Please let us know if you can grace this special occasion
-          </p>
+            {/* Attendance Choice Buttons */}
+            <div>
+              <label className="block text-[11px] font-semibold tracking-wider text-[#d9bd92] uppercase mb-1.5">
+                Will you be attending? *
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setAttending('yes')}
+                  className={`py-2.5 px-3 rounded-xl border text-center transition-all cursor-pointer flex items-center justify-center gap-1.5 text-xs ${
+                    attending === 'yes'
+                      ? 'bg-gradient-to-r from-[#d8bd91] via-[#f1dfc5] to-[#d8bd91] text-[#25050b] font-bold border-[#fff0df] shadow'
+                      : 'bg-[#190409]/60 border-[#e8d3aa]/30 text-[#e6d3bd] hover:border-[#e8d3aa]/60'
+                  }`}
+                >
+                  <span>🌸</span>
+                  <span>Joyfully Attending</span>
+                </button>
 
-          {/* Divider */}
-          <div className="flex items-center justify-center gap-3 max-w-[200px] mx-auto mb-6">
-            <span className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
-            <span className="text-[#D4AF37] text-xs">◆</span>
-            <span className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
-          </div>
+                <button
+                  type="button"
+                  onClick={() => setAttending('no')}
+                  className={`py-2.5 px-3 rounded-xl border text-center transition-all cursor-pointer flex items-center justify-center gap-1.5 text-xs ${
+                    attending === 'no'
+                      ? 'bg-[#3b0912] border-[#e8d3aa] text-[#f1dfc5] font-bold shadow'
+                      : 'bg-[#190409]/60 border-[#e8d3aa]/30 text-[#e6d3bd] hover:border-[#e8d3aa]/60'
+                  }`}
+                >
+                  <span>💌</span>
+                  <span>Regretfully Declining</span>
+                </button>
+              </div>
+            </div>
 
-          {submitted ? (
-            <div className="glass-subcard max-w-md mx-auto p-6 sm:p-8 text-center border border-[#D4AF37]/50 shadow-[0_8px_30px_rgba(212,175,55,0.15)]">
-              <div className="text-4xl mb-3 animate-heart">💖</div>
-              <h3 className="font-[family-name:var(--font-cinzel)] text-xl font-bold text-[#9C1448] mb-2">
-                Thank You, {name}!
-              </h3>
-              <p className="font-[family-name:var(--font-cormorant)] text-base md:text-lg text-[#58334E] leading-relaxed mb-5">
-                {attending === 'yes' ? (
+            {/* Guest Name */}
+            <div>
+              <label htmlFor="rsvp-name" className="block text-[11px] font-semibold tracking-wider text-[#d9bd92] uppercase mb-1">
+                Your Name / Family Name *
+              </label>
+              <input
+                id="rsvp-name"
+                type="text"
+                required
+                placeholder="e.g. Anand & Family"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-3.5 py-2.5 bg-[#190409]/80 border border-[#e8d3aa]/40 focus:border-[#f1dfc5] rounded-xl text-xs sm:text-sm text-[#fff0df] placeholder-[#d9bd92]/40 outline-none transition-colors"
+              />
+            </div>
+
+            {/* Guest Count (Only if Attending) */}
+            {attending === 'yes' && (
+              <div>
+                <label className="block text-[11px] font-semibold tracking-wider text-[#d9bd92] uppercase mb-1">
+                  Number of Guests Attending
+                </label>
+                <div className="flex items-center gap-1.5">
+                  {[1, 2, 3, 4, 5].map((count) => (
+                    <button
+                      key={count}
+                      type="button"
+                      onClick={() => setGuestCount(count)}
+                      className={`flex-1 py-1.5 rounded-lg border text-xs font-semibold transition-all cursor-pointer ${
+                        guestCount === count
+                          ? 'bg-[#e8d3aa] text-[#25050b] border-[#fff0df] font-bold shadow'
+                          : 'bg-[#190409]/60 border-[#e8d3aa]/30 text-[#e6d3bd] hover:border-[#e8d3aa]/60'
+                      }`}
+                    >
+                      {count === 5 ? '5+' : count}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Submit Button */}
+            <div className="pt-2">
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3 px-6 rounded-full bg-gradient-to-r from-[#d8bd91] via-[#f1dfc5] to-[#d8bd91] text-[#25050b] text-xs sm:text-sm font-bold tracking-wider uppercase shadow-[0_4px_20px_rgba(232,211,170,0.3)] hover:shadow-[0_6px_25px_rgba(232,211,170,0.45)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer disabled:opacity-60 flex items-center justify-center gap-2"
+              >
+                {loading ? (
                   <>
-                    Your response for the <strong>{eventLabel}</strong> has been received with love. We look forward to celebrating with you!
+                    <span className="w-3.5 h-3.5 border-2 border-[#25050b] border-t-transparent rounded-full animate-spin" />
+                    <span>Saving to Guestbook...</span>
                   </>
                 ) : (
                   <>
-                    Your response for the <strong>{eventLabel}</strong> has been noted with gratitude. Thank you for sending your prayers and blessings!
+                    <span>💌</span>
+                    <span>Submit RSVP Response</span>
                   </>
                 )}
-              </p>
-
-              <button
-                type="button"
-                onClick={handleReset}
-                className="px-5 py-2 bg-white/70 hover:bg-white/90 border border-[#D4AF37]/50 text-[#9C1448] text-xs font-semibold rounded-full transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
-              >
-                Submit Another Response
               </button>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto text-left flex flex-col gap-4">
-              {errorMsg && (
-                <div className="p-2.5 bg-red-500/10 border border-red-500/30 text-red-700 text-xs rounded-xl text-center font-medium">
-                  {errorMsg}
-                </div>
-              )}
-
-              {/* Attendance Choice */}
-              <div>
-                <label className="block text-xs font-semibold tracking-wider text-[#58334E] uppercase mb-2">
-                  Will you attend?
-                </label>
-                <div className="grid grid-cols-2 gap-2.5">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setAttending('yes');
-                      trackEvent('attendance_option_selected', { option: 'yes', event: dynamicEventType });
-                    }}
-                    className={`py-3 px-4 rounded-xl border text-center transition-all cursor-pointer flex items-center justify-center gap-2 ${
-                      attending === 'yes'
-                        ? 'bg-gradient-to-r from-[#9C1448]/15 via-[#C2185B]/15 to-[#D4AF37]/15 border-[#C2185B] shadow-sm font-bold text-[#9C1448]'
-                        : 'bg-white/40 border-white/60 hover:bg-white/70 text-[#58334E]'
-                    }`}
-                  >
-                    <span>🌸</span>
-                    <span className="text-xs">Yes, Attending</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setAttending('no');
-                      trackEvent('attendance_option_selected', { option: 'no', event: dynamicEventType });
-                    }}
-                    className={`py-3 px-4 rounded-xl border text-center transition-all cursor-pointer flex items-center justify-center gap-2 ${
-                      attending === 'no'
-                        ? 'bg-gradient-to-r from-[#9C1448]/15 via-[#C2185B]/15 to-[#D4AF37]/15 border-[#C2185B] shadow-sm font-bold text-[#9C1448]'
-                        : 'bg-white/40 border-white/60 hover:bg-white/70 text-[#58334E]'
-                    }`}
-                  >
-                    <span>💌</span>
-                    <span className="text-xs">Unable to Attend</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Guest Name Only */}
-              <div>
-                <label htmlFor="attendance-name" className="block text-xs font-semibold tracking-wider text-[#58334E] uppercase mb-1.5">
-                  Your Name / Family Name *
-                </label>
-                <input
-                  id="attendance-name"
-                  type="text"
-                  required
-                  placeholder="e.g. Anand & Family"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/75 focus:bg-white border border-[#D4AF37]/45 focus:border-[#C2185B] rounded-xl text-xs md:text-sm text-[#2D1525] outline-none transition-all shadow-inner"
-                />
-              </div>
-
-              {/* Submit Button */}
-              <div className="pt-2 text-center">
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-gradient-to-r from-[#E91E63] via-[#C2185B] to-[#880E4F] text-white text-xs md:text-sm font-semibold rounded-full shadow-[0_6px_20px_rgba(194,24,91,0.35)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_26px_rgba(194,24,91,0.45)] cursor-pointer disabled:opacity-60"
-                >
-                  {loading ? (
-                    <>
-                      <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      <span>Recording Your Response...</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>🌸</span>
-                      <span>Confirm Attendance</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </form>
-          )}
-        </div>
+          </form>
+        )}
       </div>
     </section>
   );

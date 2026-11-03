@@ -27,7 +27,7 @@ export default function ScheduleSection({ data }: ScheduleSectionProps) {
 
       {/* Timeline List */}
       <div className="w-full flex flex-col gap-5 mb-8">
-        {data.timeline.map((item, index) => (
+        {(data.timeline || []).map((item, index) => (
           <div
             key={index}
             className={`glass-panel p-6 flex flex-col gap-4 ${

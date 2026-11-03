@@ -14,12 +14,13 @@ export default function BackgroundLayer() {
     const updateLayer = () => {
       const scrollPos = window.scrollY;
 
-      // Blur: 0px on first viewport, smoothly scales up to 6px
-      const rawBlur = Math.min(Math.max((scrollPos - 70) / 45, 0), 6);
-      const blur = Math.round(rawBlur * 10) / 10; // round to 1 decimal place
+      // Blur: starts at 0px on initial view, smoothly ramps up to 10px as user scrolls
+      const rawBlur = Math.min(Math.max((scrollPos - 40) / 35, 0), 10);
+      const blur = Math.round(rawBlur * 10) / 10;
 
-      // Overlay opacity: 0 on landing, fades to 0.7
-      const rawOpacity = Math.min(Math.max((scrollPos - 80) / 180, 0), 0.7);
+      // Overlay opacity: starts at a gentle 0.25 on initial view (keeps photo clear and vibrant),
+      // then deepens up to 0.82 to create a shaded royal wine background for the invitation card
+      const rawOpacity = 0.25 + Math.min(Math.max((scrollPos - 30) / 220, 0), 0.57);
       const opacity = Math.round(rawOpacity * 100) / 100;
 
       if (imageRef.current && blur !== lastBlur) {
@@ -49,24 +50,33 @@ export default function BackgroundLayer() {
   }, []);
 
   return (
-      <div className="fixed inset-0 w-screen h-screen z-0 overflow-hidden pointer-events-none will-change-transform">
-        {/* Static background image - GPU accelerated, no transition delay */}
-        <div
-          ref={imageRef}
-          className="absolute inset-0 w-full h-full bg-cover bg-no-repeat will-change-[filter]"
-          style={{
-            backgroundImage: "url('/assets/couple.jpeg')",
-            backgroundPosition: 'center 8%',
-            filter: 'none',
-          }}
-        />
+    <div className="fixed inset-0 w-screen h-screen z-0 overflow-hidden pointer-events-none will-change-transform">
+      {/* 
+        Background Image: Uses /assets/image.png
+        Shows in full view initially, then smoothly blurs on scroll.
+      */}
+      <div
+        ref={imageRef}
+        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-[filter] duration-75 will-change-[filter] scale-[1.03]"
+        style={{
+          backgroundImage: "url('/assets/image.png')",
+          backgroundPosition: 'center 20%',
+          filter: 'none',
+        }}
+      />
 
-        {/* Gentle gradient overlay that fades in as user scrolls */}
-        <div
-          ref={overlayRef}
-          className="absolute inset-0 w-full h-full bg-gradient-to-b from-transparent via-[#FDF5F0]/45 to-[#F5E6F0]/80 pointer-events-none will-change-[opacity]"
-          style={{ opacity: 0 }}
-        />
-      </div>
-      );
+      {/* 
+        Dynamic Royal Wine & Shading Overlay:
+        Light tint initially, deepening on scroll to provide a shaded background for card elements.
+      */}
+      <div
+        ref={overlayRef}
+        className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#190409]/60 via-[#30070d]/80 to-[#190409]/95 pointer-events-none will-change-[opacity]"
+        style={{ opacity: 0.25 }}
+      />
+
+      {/* Ambient golden dust sparkles overlay */}
+      <div className="absolute inset-0 w-full h-full sparkles pointer-events-none opacity-40" />
+    </div>
+  );
 }

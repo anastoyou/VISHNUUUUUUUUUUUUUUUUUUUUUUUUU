@@ -1,104 +1,280 @@
 @import "tailwindcss";
 
-
-  @layer base {
-    :root {
-      --primary-rose: #C2185B;
-      --deep-magenta: #9C1448;
-      --royal-violet: #6A1B9A;
-      --gold-metallic: #D4AF37;
-      --gold-dark: #AA820A;
-      --bg-creme: #FDF9F2;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-color: var(--bg-creme);
-      color: #2D1525;
-      overflow-x: hidden;
-    }
+@layer base {
+  :root {
+    --wine: #30070d;
+    --wine2: #4a0b17;
+    --wine3: #681827;
+    --gold: #e8d3aa;
+    --gold-soft: #c7a979;
+    --rose: #d98a9b;
+    --cream: #fff0df;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
 
-    /* Glassmorphism custom utilities */
-    .glass-panel {
-      background-color: rgba(255, 252, 246, 0.18);
-      backdrop-filter: blur(8px) saturate(120%);
-      -webkit-backdrop-filter: blur(8px) saturate(120%);
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      box-shadow: 0 8px 24px -6px rgba(74, 28, 56, 0.07), 0 2px 6px rgba(0, 0, 0, 0.02);
-      border-radius: 1.5rem;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
+  body {
+    background-color: #190409;
+    color: var(--cream);
+    overflow-x: hidden;
+    font-family: var(--font-cormorant), Georgia, serif;
+  }
+}
 
+.font-script {
+  font-family: var(--font-great-vibes), var(--font-alex-brush), 'Great Vibes', cursive;
+}
 
-        .glass-subcard {
-          background-color: rgba(255, 255, 255, 0.16);
-          border: 1px solid rgba(255, 255, 255, 0.28);
-          border-radius: 1rem;
-        }
+/* Royal Invitation Card Styles: Flows seamlessly from the background shade */
+.invite {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  width: 100%;
+  min-height: 880px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 12%, rgba(176, 53, 70, .32), transparent 55%),
+    radial-gradient(ellipse at 85% 65%, rgba(148, 29, 51, .25), transparent 45%),
+    linear-gradient(180deg, transparent 0%, rgba(37, 5, 11, 0.65) 90px, rgba(27, 4, 8, 0.95) 220px, #190409 100%);
+  padding: 30px 0 50px;
+}
 
-        /* Audio equalizer bars animation */
-        @keyframes soundBar {
+.invite-inner-frame {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 54px 18px 40px;
+  background: rgba(37, 5, 11, 0.35);
+  border: 1px solid rgba(232, 211, 170, 0.45);
+  border-radius: 16px;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.45);
+}
 
-          0%,
-          100% {
-            transform: scaleY(0.25);
-          }
+.invite-inner-frame:before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(232, 211, 170, 0.3);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 1;
+}
 
-          50% {
-            transform: scaleY(1);
-          }
-        }
+@media (max-width: 640px) {
+  .invite {
+    padding: 10px 0 35px;
+  }
 
+  .invite-inner-frame {
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    padding: 48px 12px 32px;
+    background: transparent;
+    box-shadow: none;
+  }
 
-          .animate-bar-1 {
-            animation: soundBar 1.2s infinite ease-in-out;
-          }
+  .invite-inner-frame:before {
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    inset: 8px 0;
+  }
+}
 
-          .animate-bar-2 {
-            animation: soundBar 0.9s infinite ease-in-out 0.2s;
-          }
+.sparkles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: .75;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 8% 18%, #f3d7a4 0 1px, transparent 1.8px),
+    radial-gradient(circle at 18% 8%, #f3d7a4 0 1px, transparent 1.8px),
+    radial-gradient(circle at 83% 12%, #f3d7a4 0 1px, transparent 1.8px),
+    radial-gradient(circle at 92% 26%, #f3d7a4 0 1px, transparent 1.8px),
+    radial-gradient(circle at 13% 70%, #f3d7a4 0 1px, transparent 1.8px),
+    radial-gradient(circle at 88% 82%, #f3d7a4 0 1px, transparent 1.8px),
+    radial-gradient(circle at 50% 5%, #f3d7a4 0 1px, transparent 1.8px);
+}
 
-          .animate-bar-3 {
-            animation: soundBar 1.4s infinite ease-in-out 0.4s;
-          }
+.eyebrow {
+  font-size: 13px;
+  letter-spacing: .14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: #ead7bd;
+}
 
-          .animate-bar-4 {
-            animation: soundBar 1.0s infinite ease-in-out 0.1s;
-          }
+.script {
+  font-family: var(--font-great-vibes), var(--font-alex-brush), "Great Vibes", cursive;
+  font-weight: 400;
+}
 
-          /* Heart throb animation */
-          @keyframes heartThrob {
+.names {
+  font-size: clamp(52px, 9vw, 76px);
+  line-height: .95;
+  margin: 18px 0 8px;
+  color: #f1dfc5;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, .45);
+}
 
-            0%,
-            100% {
-              transform: scale(1);
-            }
+.intro {
+  max-width: 420px;
+  margin: 16px auto 0;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #f2dfc8;
+}
 
-            50% {
-              transform: scale(1.15);
-            }
-          }
+.gold-line {
+  height: 1px;
+  width: min(85%, 400px);
+  margin: 20px auto;
+  background: linear-gradient(90deg, transparent, #d8bd91, transparent);
+}
 
-          .animate-heart {
-            animation: heartThrob 2s infinite ease-in-out;
-          }
+.events {
+  max-width: 440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
 
-          /* Mandala slow spin */
-          @keyframes mandalaSpin {
-            0% {
-              transform: rotate(0deg);
-            }
+.event {
+  padding: 8px 10px;
+}
 
-            100% {
-              transform: rotate(360deg);
-            }
-          }
+.event-label {
+  font-size: 12px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: #d9bd92;
+}
 
-          .animate-mandala {
-            animation: mandalaSpin 25s linear infinite;
-          }
+.event-date {
+  font-size: 21px;
+  line-height: 1.15;
+  margin-top: 5px;
+}
+
+.event-day {
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.event-time {
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.venue-title {
+  font-size: 12px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: #d9bd92;
+}
+
+.venue-name {
+  font-size: 23px;
+  line-height: 1.15;
+  margin-top: 4px;
+}
+
+.venue-place {
+  font-size: 15px;
+  color: #e1ceb5;
+  margin-top: 3px;
+}
+
+.family {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.small {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #ddc9b1;
+}
+
+/* Audio equalizer bars animation */
+@keyframes soundBar {
+  0%, 100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.animate-bar-1 {
+  animation: soundBar 1.2s infinite ease-in-out;
+}
+.animate-bar-2 {
+  animation: soundBar 0.9s infinite ease-in-out 0.2s;
+}
+.animate-bar-3 {
+  animation: soundBar 1.4s infinite ease-in-out 0.4s;
+}
+.animate-bar-4 {
+  animation: soundBar 1.0s infinite ease-in-out 0.1s;
+}
+
+/* Heart throb animation */
+@keyframes heartThrob {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+.animate-heart {
+  animation: heartThrob 2s infinite ease-in-out;
+}
+
+/* Hanging Light / Lantern Glow animation */
+@keyframes lanternGlow {
+  0%, 100% {
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 10px rgba(255, 215, 120, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 22px rgba(255, 225, 140, 0.7));
+  }
+}
+
+.animate-lantern-glow {
+  animation: lanternGlow 3.5s ease-in-out infinite;
+}
+
+@media (max-width: 440px) {
+  .invite {
+    padding: 64px 16px 32px;
+    border-radius: 14px;
+  }
+  .names {
+    font-size: 52px;
+  }
+  .event-date {
+    font-size: 18px;
+  }
+  .event-time {
+    font-size: 14px;
+  }
+  .family {
+    gap: 8px;
+  }
+}

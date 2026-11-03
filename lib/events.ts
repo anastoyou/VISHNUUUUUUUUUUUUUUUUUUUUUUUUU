@@ -40,6 +40,8 @@ export interface WeddingEventData {
   };
   withLove: string[];
   contacts: string[];
+  inviterName?: string;
+  inviterHouse?: string;
   familyAddress: {
     line1: string;
     line2: string;
@@ -49,6 +51,7 @@ export interface WeddingEventData {
   timelineSubtitle: string;
   countdownHeading: string;
   countdownTarget: string; // ISO string
+  timeline?: TimelineItem[];
   venueName: string;
   venueLocationSub: string;
   venueBlockTitle: string;
@@ -94,6 +97,8 @@ export const EVENT_DATA: Record<EventType, WeddingEventData> = {
     },
     withLove: ['Jishnu V', 'Pradeep V'],
     contacts: ['941777114', '9072937020'],
+    inviterName: 'Jishnu V & Pradeep V',
+    inviterHouse: 'Kunnath House, Kanakkanur, Manapadam (PO), Palakkad',
     familyAddress: {
       line1: 'Kunnath House,',
       line2: 'Kanakkanur, Manapadam (PO),',
@@ -102,7 +107,28 @@ export const EVENT_DATA: Record<EventType, WeddingEventData> = {
     timelineTitle: 'Wedding Schedule',
     timelineSubtitle: 'Wednesday, 11 November 2026 • 11:00 AM – 12:00 PM',
     countdownHeading: 'Counting Down To Auspicious Muhurtham',
-    countdownTarget: '2026-11-11T11:00:00+05:30',
+    countdownTarget: '2026-11-11T06:00:00+05:30',
+    timeline: [
+      {
+        time: '11:00 AM – 12:00 PM',
+        icon: '🛕',
+        title: 'Wedding Ceremony',
+        sub: 'PMR Auditorium, Kuzhalmannam',
+        desc: 'Sacred wedding ceremony of Vishnu and Vani in the presence of family and loved ones.',
+        tag: 'Auspicious Muhurtham',
+        highlight: true,
+        ribbon: 'Sacred Ceremony'
+      },
+      {
+        time: '12:00 PM Onwards',
+        icon: '🌸',
+        title: 'Traditional Wedding Feast',
+        sub: 'PMR Auditorium',
+        desc: 'Join us for celebratory Sadhya and blessings.',
+        tag: 'Traditional Feast',
+        highlight: false
+      }
+    ],
     venueName: 'PMR Auditorium',
     venueLocationSub: 'Kuzhalmannam, Palakkad, Kerala',
     venueBlockTitle: 'Wedding Ceremony Venue',
@@ -146,6 +172,8 @@ export const EVENT_DATA: Record<EventType, WeddingEventData> = {
     },
     withLove: ['Jishnu V', 'Pradeep V'],
     contacts: ['941777114', '9072937020'],
+    inviterName: 'Jishnu V & Pradeep V',
+    inviterHouse: 'Kunnath House, Kanakkanur, Manapadam (PO), Palakkad',
     familyAddress: {
       line1: 'Kunnath House,',
       line2: 'Kanakkanur, Manapadam (PO),',
@@ -155,6 +183,27 @@ export const EVENT_DATA: Record<EventType, WeddingEventData> = {
     timelineSubtitle: 'Thursday, 12 November 2026 • 4:00 PM – 8:00 PM',
     countdownHeading: 'Counting Down To Evening Reception',
     countdownTarget: '2026-11-12T16:00:00+05:30',
+    timeline: [
+      {
+        time: '4:00 PM',
+        icon: '✨',
+        title: 'Guest Reception & Welcome',
+        sub: 'Thanima Auditorium, Puthucode',
+        desc: 'Welcome of honored guests and family with refreshments.',
+        tag: 'Evening Welcome',
+        highlight: false
+      },
+      {
+        time: '4:00 PM – 8:00 PM',
+        icon: '🥂',
+        title: 'Grand Wedding Reception & Dinner',
+        sub: 'Thanima Auditorium',
+        desc: 'An evening of joy, felicitations, and banquet dinner.',
+        tag: 'Reception Celebration',
+        highlight: true,
+        ribbon: 'Evening Celebration'
+      }
+    ],
     venueName: 'Thanima Auditorium',
     venueLocationSub: 'Puthucode, Palakkad, Kerala',
     venueBlockTitle: 'Wedding Reception Venue',

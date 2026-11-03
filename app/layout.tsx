@@ -1,68 +1,75 @@
 import type { Metadata } from "next";
-import { Alex_Brush, Cinzel, Cormorant_Garamond, Montserrat } from "next/font/google";
+import { Alex_Brush, Cinzel, Cormorant_Garamond, Great_Vibes, Montserrat } from "next/font/google";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 import "./globals.css";
 
-  const alexBrush = Alex_Brush({
-    weight: "400",
-    subsets: ["latin"],
-    variable: "--font-alex-brush",
-    display: "swap",
-  });
+const alexBrush = Alex_Brush({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-alex-brush",
+  display: "swap",
+});
 
-    const cinzel = Cinzel({
-      weight: ["400", "600", "700", "800"],
-      subsets: ["latin"],
-      variable: "--font-cinzel",
-      display: "swap",
-    });
+const greatVibes = Great_Vibes({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-great-vibes",
+  display: "swap",
+});
 
-    const cormorant = Cormorant_Garamond({
-      weight: ["400", "600", "700"],
-      subsets: ["latin"],
-      style: ["normal", "italic"],
-      variable: "--font-cormorant",
-      display: "swap",
-    });
+const cinzel = Cinzel({
+  weight: ["400", "600", "700", "800"],
+  subsets: ["latin"],
+  variable: "--font-cinzel",
+  display: "swap",
+});
 
-    const montserrat = Montserrat({
-      weight: ["300", "400", "500", "600", "700"],
-      subsets: ["latin"],
-      variable: "--font-montserrat",
-      display: "swap",
-    });
+const cormorant = Cormorant_Garamond({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
-      ? process.env.NEXT_PUBLIC_SITE_URL
-      : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'https://sreeraj-weds-suji.vercel.app';
+const montserrat = Montserrat({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
 
-    export const metadata: Metadata = {
-      metadataBase: new URL(siteUrl),
-      title: "Wedding Celebration | Sreeraj & Suji",
-      description: "Wedding and Reception celebrations of Sreeraj & Suji on Wednesday, December 30, 2026.",
-      openGraph: {
-        title: "Wedding Celebration: Sreeraj & Suji",
-        description: "Wednesday, December 30, 2026 • Greens Avenue Auditorium, Desamangalam & Kodakkal CSI Parish Hall, Malappuram",
-        images: ["/assets/couple.jpeg"],
-      },
-    };
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  ? process.env.NEXT_PUBLIC_SITE_URL
+  : process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : 'https://vishnu-weds-vani.vercel.app';
 
-    export default function RootLayout({
-      children,
-    }: Readonly<{
-      children: React.ReactNode;
-    }>) {
-    return(
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title: "Vishnu & Vani — Wedding Invitation",
+  description: "Wedding and Reception celebrations of Vishnu & Vani on 11 & 12 November 2026 in Palakkad, Kerala.",
+  openGraph: {
+    title: "Vishnu & Vani — Wedding Celebration",
+    description: "Wedding Ceremony: 11 Nov 2026 @ PMR Auditorium • Reception: 12 Nov 2026 @ Thanima Auditorium",
+    images: ["/assets/image.png"],
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
     <html
-      lang = "en"
-      className = {`${cinzel.variable} ${cormorant.variable} ${alexBrush.variable} ${montserrat.variable} scroll-smooth`}
-  >
-      <body className="font-[family-name:var(--font-montserrat)] text-[#2D1525] antialiased min-h-screen relative selection:bg-[#C2185B]/20 selection:text-[#9C1448]">
+      lang="en"
+      className={`${cormorant.variable} ${greatVibes.variable} ${alexBrush.variable} ${cinzel.variable} ${montserrat.variable} scroll-smooth`}
+    >
+      <body className="font-[family-name:var(--font-cormorant)] text-[#fff0df] antialiased min-h-screen relative bg-[#190409]">
         <AnalyticsTracker />
         {children}
       </body>
-    </html >
+    </html>
   );
 }

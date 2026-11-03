@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { WeddingEventData } from '@/lib/events';
 
 interface HeroSectionProps {
@@ -9,67 +8,61 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ data }: HeroSectionProps) {
+  const isReception = data.id === 'reception';
+
   return (
-    <section id="hero" className="min-h-[100svh] flex flex-col justify-between items-center text-center pb-8 pt-[48svh] px-4 relative">
-      <div className="flex flex-col items-center gap-2 mb-4 animate-fade-in scale-105 sm:scale-115 md:scale-125 transition-transform duration-300">
-        <Image
-          src="/assets/save-the-date.png"
-          alt="Save the Date"
-          width={697}
-          height={358}
-          priority
-          className="w-56 sm:w-72 md:w-84 lg:w-96 max-w-[90vw] h-auto object-contain drop-shadow-[0_2px_14px_rgba(255,255,255,0.95)]"
-        />
-
-        <div className="flex flex-col items-center gap-2 my-2">
-          <h1 className="font-[family-name:var(--font-cinzel)] text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-wide drop-shadow-[0_2px_12px_rgba(255,255,255,0.95)]">
-            Sreeraj
-          </h1>
-          <h1 className="animate-pulse font-[family-name:var(--font-cinzel)] text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-wide drop-shadow-[0_2px_12px_rgba(255,255,255,0.95)]">
-            ❤︎
-          </h1>
-
-          {/* <div className="flex items-center gap-3 my-1">
-            <span className="w-8 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
-            <span className="text-xl animate-heart">💍</span>
-            <span className="w-8 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
-          </div> */}
-
-          {/* <Image
-            src="/assets/heart1.png"
-
-            alt="Save the Date"
-            width={697}
-            height={358}
-            priority
-            className="w-14 animate-bounce sm:w-72 md:w-84 lg:w-96 max-w-[90vw] h-auto object-contain drop-shadow-[0_2px_14px_rgba(255,255,255,0.95)]"
-          /> */}
-
-
-
-          <h1 className="font-[family-name:var(--font-cinzel)] text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-wide drop-shadow-[0_2px_12px_rgba(255,255,255,0.95)]">
-            Suji
-          </h1>
-          {/* <h1 className="font-[family-name:var(--font-cinzel)] text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-wide drop-shadow-[0_2px_12px_rgba(255,255,255,0.95)]">
-          </h1> */}
-        </div>
-
-        {/* 
-        <p className="font-[family-name:var(--font-cinzel)] text-md md:text-sm font-bold tracking-wider text-[#2D1525] drop-shadow-[0_1px_8px_rgba(255,255,255,0.95)]">
-          {data.heroDate}
-        </p> */}
+    <section
+      id="hero"
+      className="min-h-[100svh] w-full flex flex-col justify-between items-center text-center px-4 pt-12 pb-8 relative z-10"
+    >
+      {/* Top Function Badge */}
+      <div className="mt-2 animate-fade-in">
+        <span className="inline-block px-4 py-1.5 rounded-full bg-[#190409]/80 border border-[#e8d3aa]/40 text-[11px] uppercase tracking-[0.22em] text-[#e8d3aa] font-semibold backdrop-blur-xs shadow-md">
+          {isReception ? 'Wedding Reception Invitation' : 'Wedding Ceremony Invitation'}
+        </span>
       </div>
 
+      {/* Center: Full View Artwork & Couple Names */}
+      <div className="flex flex-col items-center justify-center my-auto py-6 max-w-xl">
+
+
+
+        {/* Grand Calligraphy Names */}
+        <div className="my-2">
+          <h1 className="font-script text-7xl sm:text-7xl  font-semibold md:text-8xl text-[#fff0df] leading-none tracking-normal drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]">
+            Vishnu
+          </h1>
+          <span className="block my-1 font-serif italic text-2xl sm:text-3xl text-[#d8bd91] drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+            &amp;
+          </span>
+          <h1 className="font-script text-7xl sm:text-7xl  font-semibold md:text-8xl text-[#fff0df] leading-none tracking-normal drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]">
+            Vani
+          </h1>
+        </div>
+
+        {/* Date & Muhurtham pill */}
+        <div className="mt-4 px-5 py-2 rounded-full bg-[#190409]/75 border border-[#e8d3aa]/50 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+          <p className="font-serif text-sm sm:text-base tracking-widest text-[#f1dfc5] font-semibold">
+            {data.heroDate}
+          </p>
+          <p className="text-xs text-[#d8bd91] tracking-wider mt-0.5">
+            {data.timingPill}
+          </p>
+        </div>
+      </div>
+
+      {/* Bottom Scroll Cue */}
       <a
-        href="#announcement"
-        className="flex flex-col items-center gap-2 text-[#7E5874] text-xs uppercase tracking-widest transition-all duration-300 hover:text-[#C2185B] hover:translate-y-1"
+        href="#invitation-card"
+        className="group flex flex-col items-center gap-2 text-[#e8d3aa]/85 text-xs uppercase tracking-[0.2em] transition-all duration-300 hover:text-[#fff0df]"
       >
-        <span>Scroll to Explore</span>
-        <div className="w-5 h-8 border-2 border-current rounded-full relative">
-          <div className="w-1 h-1.5 bg-current rounded-full absolute top-1.5 left-1/2 -translate-x-1/2 animate-bounce" />
+        <span className="tracking-[0.25em] text-[11px] drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">
+          Scroll to view invitation
+        </span>
+        <div className="w-5 h-8 border border-[#e8d3aa]/60 rounded-full relative bg-[#190409]/40 backdrop-blur-xs">
+          <div className="w-1 h-2 bg-[#e8d3aa] rounded-full absolute top-1.5 left-1/2 -translate-x-1/2 animate-bounce" />
         </div>
       </a>
     </section>
   );
 }
-

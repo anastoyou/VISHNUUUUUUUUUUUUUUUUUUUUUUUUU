@@ -8,11 +8,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: EVENT_DATA.reception.ogTitle,
     description: EVENT_DATA.reception.ogDesc,
-    images: ['/assets/couple.jpeg'],
+    images: ['/assets/image.png'],
   },
 };
 
 export default function ReceptionPage() {
   return <WeddingView eventType="reception" />;
 }
-

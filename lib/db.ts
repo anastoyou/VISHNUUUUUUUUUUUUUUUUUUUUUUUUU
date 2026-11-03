@@ -1,9 +1,9 @@
 import { neon, NeonQueryFunction } from '@neondatabase/serverless';
 
 const DEFAULT_DATABASE_URL =
-  'postgresql://neondb_owner:npg_M0hRF8xrIVsw@ep-broad-union-b3nbps4v-pooler.c-4.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require';
+  'postgresql://neondb_owner:npg_bSK8kJCNdL0o@ep-withered-shape-a1zcg237-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require';
 
-const connectionString = process.env.DATABASE_URL || DEFAULT_DATABASE_URL;
+const connectionString = DEFAULT_DATABASE_URL;
 
 // Singleton Neon SQL client
 export const sql: NeonQueryFunction<false, false> = neon(connectionString);
